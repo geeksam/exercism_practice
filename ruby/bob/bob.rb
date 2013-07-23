@@ -1,4 +1,4 @@
 class Bob
-  def hey
+  def hey(dude)
   end
 end
