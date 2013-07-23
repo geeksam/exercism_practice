@@ -33,7 +33,7 @@ class TeenSpirit
   end
 
   def shouty?
-    message !~ /[a-z]/
+    Shouty.new(message).well_is_it?
   end
 
   def asking_a_question?
@@ -42,5 +42,16 @@ class TeenSpirit
 
   def silent?
     message.to_s.empty?
+  end
+
+  class Shouty
+    attr_reader :message
+    def initialize(message)
+      @message = message
+    end
+
+    def well_is_it?
+      message !~ /[a-z]/
+    end
   end
 end
