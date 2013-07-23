@@ -67,10 +67,7 @@ end
 
 
 module Moods
-  class Mood
-  end
-
-  class Shouty < Mood
+  class Shouty
     def applies_to?(message)
       message !~ /[a-z]/
     end
@@ -80,7 +77,7 @@ module Moods
     end
   end
 
-  class Asky < Mood
+  class Asky
     def applies_to?(message)
       message =~ /\?\Z/
     end
@@ -90,7 +87,7 @@ module Moods
     end
   end
 
-  class Silent < Mood
+  class Silent
     def applies_to?(message)
       message.to_s.empty?
     end
@@ -101,7 +98,7 @@ module Moods
   end
 
   # Fallback
-  class NotUnderstood < Mood
+  class NotUnderstood
     def applies_to?(message)
       true
     end
