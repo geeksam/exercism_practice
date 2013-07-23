@@ -27,22 +27,18 @@ begin
     end
 
     def test_shouting_numbers
-      skip
       assert_equal 'Woah, chill out!', teenager.hey('1, 2, 3 GO!')
     end
 
     def test_shouting_with_special_characters
-      skip
       assert_equal 'Woah, chill out!', teenager.hey('ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!')
     end
 
     def test_shouting_with_no_exclamation_mark
-      skip
       assert_equal 'Woah, chill out!', teenager.hey('I HATE YOU')
     end
 
     def test_statement_containing_question_mark
-      skip
       assert_equal 'Whatever.', teenager.hey('Ending with ? means a question.')
     end
 
