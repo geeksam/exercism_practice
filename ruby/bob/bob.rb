@@ -44,34 +44,26 @@ class TeenSpirit
     Silent.new(message).well_is_it?
   end
 
-  class Shouty
+  class Mood
     attr_reader :message
     def initialize(message)
       @message = message
     end
+  end
 
+  class Shouty < Mood
     def well_is_it?
       message !~ /[a-z]/
     end
   end
 
-  class Asky
-    attr_reader :message
-    def initialize(message)
-      @message = message
-    end
-
+  class Asky < Mood
     def well_is_it?
       message =~ /\?\Z/
     end
   end
 
-  class Silent
-    attr_reader :message
-    def initialize(message)
-      @message = message
-    end
-
+  class Silent < Mood
     def well_is_it?
       message.to_s.empty?
     end
