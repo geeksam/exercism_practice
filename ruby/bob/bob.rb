@@ -23,6 +23,6 @@ class Bob
   end
 
   def silent?(message)
-    message.empty?
+    message.to_s.empty?
   end
 end
