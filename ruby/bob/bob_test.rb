@@ -15,7 +15,6 @@ begin
     end
 
     def test_shouting
-      skip
       assert_equal 'Woah, chill out!', teenager.hey('WATCH OUT!')
     end
 
