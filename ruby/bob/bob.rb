@@ -1,11 +1,12 @@
 class Bob
   def hey(message_of_critical_importance)
+    message = message_interpreter.new(message_of_critical_importance)
     case
-    when silent?(message_of_critical_importance)
+    when message.silent?
       "Fine. Be that way."
-    when shouty?(message_of_critical_importance)
+    when message.shouty?
       "Woah, chill out!"
-    when asking_a_question?(message_of_critical_importance)
+    when message.asking_a_question?
       "Sure."
     else
       "Whatever."
@@ -14,15 +15,32 @@ class Bob
 
   private
 
-  def shouty?(message)
+  # Bob appears to be evaluating incoming communiques according to some
+  # fairly crude criteria.  Since the field of psychology does not yet
+  # appear to have a general solution for dependency injection
+  # (methadone notwithstanding), we'll just leave this here for Bob to
+  # replace as he matures...
+  def message_interpreter
+    TeenSpirit
+  end
+end
+
+class TeenSpirit
+  attr_reader :message
+
+  def initialize(message)
+    @message = message
+  end
+
+  def shouty?
     message !~ /[a-z]/
   end
 
-  def asking_a_question?(message)
+  def asking_a_question?
     message =~ /\?\Z/
   end
 
-  def silent?(message)
+  def silent?
     message.to_s.empty?
   end
 end
