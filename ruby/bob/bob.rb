@@ -33,17 +33,19 @@ class TeenSpirit
   end
 
   def shouty?
-    Shouty.new(message).well_is_it?
+    Moods::Shouty.new(message).well_is_it?
   end
 
   def asking_a_question?
-    Asky.new(message).well_is_it?
+    Moods::Asky.new(message).well_is_it?
   end
 
   def silent?
-    Silent.new(message).well_is_it?
+    Moods::Silent.new(message).well_is_it?
   end
+end
 
+module Moods
   class Mood
     attr_reader :message
     def initialize(message)
