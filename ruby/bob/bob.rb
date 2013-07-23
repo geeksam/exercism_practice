@@ -1,16 +1,23 @@
 class Bob
   def hey(message_of_critical_importance)
     message = message_interpreter.new(message_of_critical_importance)
-    case
-    when message.silent?
-      "Fine. Be that way."
-    when message.shouty?
-      "Woah, chill out!"
-    when message.asking_a_question?
-      "Sure."
-    else
-      "Whatever."
-    end
+    message.interpret(self)
+  end
+
+  def message_silent
+    "Fine. Be that way."
+  end
+
+  def message_shouty
+    "Woah, chill out!"
+  end
+
+  def message_interrogative
+    "Sure."
+  end
+
+  def message_not_understood
+    "Whatever."
   end
 
   private
@@ -25,11 +32,26 @@ class Bob
   end
 end
 
+
+
 class TeenSpirit
   attr_reader :message
 
   def initialize(message)
     @message = message
+  end
+
+  def interpret(receiver)
+    case
+    when silent?
+      receiver.message_silent
+    when shouty?
+      receiver.message_shouty
+    when asking_a_question?
+      receiver.message_interrogative
+    else
+      receiver.message_not_understood
+    end
   end
 
   def shouty?
@@ -44,6 +66,8 @@ class TeenSpirit
     Moods::Silent.new(message).well_is_it?
   end
 end
+
+
 
 module Moods
   class Mood
