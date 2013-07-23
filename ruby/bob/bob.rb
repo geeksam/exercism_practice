@@ -42,28 +42,21 @@ class TeenSpirit
   end
 
   def interpret(receiver)
-    case
-    when silent?
-      receiver.message_silent
-    when shouty?
-      receiver.message_shouty
-    when asking_a_question?
-      receiver.message_interrogative
-    else
-      receiver.message_not_understood
-    end
+    mood = moods_grokked.detect {|mood| mood.applies_to?(message) }
+    receiver.send(mood.handler)
   end
 
-  def shouty?
-    Moods::Shouty.new(message).well_is_it?
-  end
-
-  def asking_a_question?
-    Moods::Asky.new(message).well_is_it?
-  end
-
-  def silent?
-    Moods::Silent.new(message).well_is_it?
+  def moods_grokked
+    @moods_grokked ||=
+      begin
+        moods = [
+          Moods::Silent,
+          Moods::Shouty,
+          Moods::Asky,
+          Moods::NotUnderstood,
+        ]
+        moods.map(&:new)
+      end
   end
 end
 
@@ -71,27 +64,46 @@ end
 
 module Moods
   class Mood
-    attr_reader :message
-    def initialize(message)
-      @message = message
-    end
   end
 
   class Shouty < Mood
-    def well_is_it?
+    def applies_to?(message)
       message !~ /[a-z]/
+    end
+
+    def handler
+      :message_shouty
     end
   end
 
   class Asky < Mood
-    def well_is_it?
+    def applies_to?(message)
       message =~ /\?\Z/
+    end
+
+    def handler
+      :message_interrogative
     end
   end
 
   class Silent < Mood
-    def well_is_it?
+    def applies_to?(message)
       message.to_s.empty?
+    end
+
+    def handler
+      :message_silent
+    end
+  end
+
+  # Fallback
+  class NotUnderstood < Mood
+    def applies_to?(message)
+      true
+    end
+
+    def handler
+      :message_not_understood
     end
   end
 end
