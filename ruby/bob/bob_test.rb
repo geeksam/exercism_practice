@@ -23,7 +23,6 @@ begin
     end
 
     def test_talking_forcefully
-      skip
       assert_equal 'Whatever.', teenager.hey("Let's go make out behind the gym!")
     end
 
