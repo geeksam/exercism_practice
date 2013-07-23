@@ -1,7 +1,6 @@
 class Bob
   def hey(message_of_critical_importance)
-    message = message_interpreter.new(message_of_critical_importance)
-    message.interpret(self)
+    message_interpreter.interpret(message_of_critical_importance, on_behalf_of: self)
   end
 
   def message_silent
@@ -36,6 +35,11 @@ end
 
 class TeenSpirit
   attr_reader :message
+
+  def self.interpret(message, options = {})
+    receiver = options.fetch(:on_behalf_of) { raise ArgumentError, "Must provide :on_behalf_of!" }
+    new(message).interpret(receiver)
+  end
 
   def initialize(message)
     @message = message
