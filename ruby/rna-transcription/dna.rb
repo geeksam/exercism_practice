@@ -6,6 +6,6 @@ class DNA
   end
 
   def to_rna
-    sequence.sub("T", "U")
+    sequence.gsub("T", "U")
   end
 end
