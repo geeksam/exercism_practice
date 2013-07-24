@@ -16,7 +16,6 @@ class DNATest < MiniTest::Unit::TestCase
   end
 
   def test_it_transcribes_thymidine_to_uracil
-    skip
     assert_equal 'U', DNA.new("T").to_rna
   end
 
