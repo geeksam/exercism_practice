@@ -12,7 +12,6 @@ class DNATest < MiniTest::Unit::TestCase
   end
 
   def test_transcribes_adenosine_unchanged
-    skip
     assert_equal 'A', DNA.new("A").to_rna
   end
 
