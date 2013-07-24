@@ -8,7 +8,6 @@ class DNATest < MiniTest::Unit::TestCase
   end
 
   def test_transcribes_guanosine_unchanged
-    skip
     assert_equal 'G', DNA.new("G").to_rna
   end
 
